@@ -12,9 +12,9 @@ const createToken = (email, userId) => {
   });
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: maxAge,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "None",
+    maxAge: maxAge*1000,
     path:"/",
   });
   return token;
