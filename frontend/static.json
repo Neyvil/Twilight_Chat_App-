@@ -1,0 +1,11 @@
+{
+    "headers": {
+      "/**": {
+        "Cache-Control": "public, max-age=0, must-revalidate"
+      }
+    },
+    "redirects": [
+      { "source": "/*", "destination": "/", "type": 200 }
+    ]
+  }
+  
