@@ -1,8 +1,8 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
-
 import cors from "cors";
+import helmet from "helmet"; // Added for security headers
 import dbConnect from "./config/db.js";
 import authRoutes from "./routes/AuthRoutes.js";
 import contactsRoutes from "./routes/ContactsRoutes.js";
@@ -18,14 +18,13 @@ const port = process.env.PORT || 3001;
 
 app.use(
   cors({
-    origin: [
-      process.env.ORIGIN ||
-        "https://twilight-chat-oc3lgcba1-neyvils-projects.vercel.app",
-    ],
+    origin: process.env.ORIGIN || "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true, //for cookies
+    credentials: true, // For cookies
   })
 );
+
+app.use(helmet()); // Security headers
 app.use("/uploads/profiles", express.static("uploads/profiles"));
 app.use("/uploads/files", express.static("uploads/files"));
 
@@ -33,13 +32,30 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/contacts", contactsRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/channels", channelRoutes);
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({ error: err.message || "Server Error" });
+});
+
 const server = app.listen(port, () =>
   console.log(`Server running on port: ${port}`)
 );
 
+// Socket setup
 socketSetUp(server);
+
+// Graceful shutdown
+process.on("SIGINT", async () => {
+  console.log("Shutting down server...");
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
+});

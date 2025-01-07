@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs";
 import asyncHandler from "../middilewares/asyncHandler.js";
 import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
-import { renameSync, unlink, unlinkSync } from "fs";
+import { renameSync, unlinkSync } from "fs";
 
 const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
