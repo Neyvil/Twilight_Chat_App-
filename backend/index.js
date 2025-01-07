@@ -18,7 +18,7 @@ const port = process.env.PORT || 3001;
 
 app.use(
   cors({
-    origin: [process.env.ORIGIN || "http://localhost:5173"],
+    origin: ["https://twilight-chat-jznxudi6i-neyvils-projects.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true, //for cookies
   })
