@@ -4,11 +4,24 @@ import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
 import { renameSync, unlinkSync } from "fs";
 
+
 const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
+
 
 const createToken = (email, userId) => {
   return jwt.sign({ email, userId }, process.env.JWT_KEY, {
-    expiresIn: maxAge,
+    expiresIn: maxAge, 
+  });
+};
+
+// Set JWT token cookie with security options
+const setJwtCookie = (res, token) => {
+  res.cookie("jwt", token, {
+    httpOnly: true, 
+    secure: process.env.NODE_ENV === "production", // Use only HTTPS in production
+    sameSite: "Strict", // Protects against CSRF attacks
+    maxAge: maxAge * 1000, // 3 days
+    path: "/", // Available throughout the site
   });
 };
 
@@ -22,9 +35,10 @@ const signup = asyncHandler(async (req, res) => {
     }
 
     const user = await User.create({ email, password });
-    res.cookie("jwt", createToken(email, user.id), {
-      maxAge: maxAge * 1000,
-    });
+    const token = createToken(email, user.id);
+
+    // Set JWT in cookie
+    setJwtCookie(res, token);
 
     return res.status(201).json({
       user: {
@@ -52,15 +66,17 @@ const login = asyncHandler(async (req, res) => {
         .status(404)
         .json({ message: "User with given email is not found." });
     }
+
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
       return res
         .status(400)
         .json({ message: "Password credential is incorrect!" });
     }
-    res.cookie("jwt", createToken(email, user.id), {
-      maxAge: maxAge * 1000,
-    });
+
+    const token = createToken(email, user.id);
+
+    setJwtCookie(res, token);
 
     return res.status(200).json({
       user: {
@@ -100,6 +116,7 @@ const getUserInfo = asyncHandler(async (req, res) => {
     return res.status(402).json({ message: "Failed to fetch User data" });
   }
 });
+
 const updateProfile = asyncHandler(async (req, res) => {
   try {
     const user = req.user;
@@ -109,6 +126,7 @@ const updateProfile = asyncHandler(async (req, res) => {
         message: "Please fill all the required fields for Profile Setup",
       });
     }
+
     const userData = await User.findOneAndUpdate(
       user._id,
       {
@@ -119,6 +137,7 @@ const updateProfile = asyncHandler(async (req, res) => {
       },
       { new: true, runValidators: true }
     );
+
     return res.status(200).json({
       id: userData.id,
       email: userData.email,
@@ -186,7 +205,7 @@ const removeProfileImage = asyncHandler(async (req, res) => {
 const logOut = asyncHandler(async (req, res) => {
   try {
     res.cookie("jwt", "", {
-      maxAge: 1,
+      maxAge: 1, 
     });
 
     res.status(200).json({ message: "Logged out Successfully" });
@@ -194,6 +213,7 @@ const logOut = asyncHandler(async (req, res) => {
     console.log(error);
   }
 });
+
 export {
   signup,
   login,
