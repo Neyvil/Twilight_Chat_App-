@@ -4,7 +4,6 @@ import User from "../models/UserModel.js";
 import jwt from "jsonwebtoken";
 import { renameSync, unlink, unlinkSync } from "fs";
 
-
 const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
 const createToken = (email, userId) => {
@@ -25,9 +24,6 @@ const signup = asyncHandler(async (req, res) => {
     const user = await User.create({ email, password });
     res.cookie("jwt", createToken(email, user.id), {
       maxAge: maxAge * 1000,
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
     });
 
     return res.status(201).json({
@@ -64,9 +60,6 @@ const login = asyncHandler(async (req, res) => {
     }
     res.cookie("jwt", createToken(email, user.id), {
       maxAge: maxAge * 1000,
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
     });
 
     return res.status(200).json({
@@ -194,8 +187,6 @@ const logOut = asyncHandler(async (req, res) => {
   try {
     res.cookie("jwt", "", {
       maxAge: 1,
-      secure: true,
-      sameSite: true,
     });
 
     res.status(200).json({ message: "Logged out Successfully" });
