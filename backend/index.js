@@ -41,10 +41,10 @@ app.use("/api/contacts", contactsRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/channels", channelRoutes);
 
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html')); 
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html')); 
 });
 
 app.use((err, req, res, next) => {
