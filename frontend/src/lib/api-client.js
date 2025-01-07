@@ -1,9 +1,7 @@
-
 import axios from "axios";
-import { HOST } from "../../utils/constant.js";
-
+import { BACKEND_HOST } from "../../utils/constant.js";
 const apiClient = axios.create({
-  baseURL: HOST,
+  baseURL: BACKEND_HOST,
 });
 
 export { apiClient };
