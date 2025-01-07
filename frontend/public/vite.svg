@@ -1,0 +1,32 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="200"
+  height="200"
+  viewBox="0 0 200 200"
+>
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="cool-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff0066" />
+      <stop offset="50%" stop-color="#7303c0" />
+      <stop offset="100%" stop-color="#1e1f3b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background Circle -->
+  <circle cx="100" cy="100" r="95" fill="url(#cool-gradient)" stroke="#fff" stroke-width="4" />
+
+  <!-- Text -->
+  <text
+    x="50%"
+    y="50%"
+    font-family="Arial, Helvetica, sans-serif"
+    font-weight="bold"
+    font-size="64"
+    fill="#fff"
+    text-anchor="middle"
+    dominant-baseline="middle"
+  >
+    NT
+  </text>
+</svg>
