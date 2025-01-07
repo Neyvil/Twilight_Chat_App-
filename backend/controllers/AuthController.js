@@ -6,18 +6,21 @@ import { renameSync, unlinkSync } from "fs";
 
 const maxAge = 3 * 24 * 60 * 60; // 3 days in seconds
 
-const createToken = (email, userId) => {
-  const token =  jwt.sign({ email, userId }, process.env.JWT_KEY, {
+const createToken = (res, email, userId) => {
+  const token = jwt.sign({ email, userId }, process.env.JWT_KEY, {
     expiresIn: maxAge,
   });
+
+  // Set the cookie on the response
   res.cookie("jwt", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "None",
-    maxAge: maxAge*1000,
-    path:"/",
+    secure: process.env.NODE_ENV === "production", 
+    sameSite: "None", 
+    maxAge: maxAge * 1000, 
+    path: "/",
   });
-  return token;
+
+  return token; 
 };
 
 
@@ -31,9 +34,7 @@ const signup = asyncHandler(async (req, res) => {
     }
 
     const user = await User.create({ email, password });
-    res.cookie("jwt", createToken(email, user.id), {
-      maxAge: maxAge * 1000,
-    });
+    createToken(res, email, user.id); // Set the token as a cookie
 
     return res.status(201).json({
       user: {
@@ -61,15 +62,15 @@ const login = asyncHandler(async (req, res) => {
         .status(404)
         .json({ message: "User with given email is not found." });
     }
+
     const auth = await bcrypt.compare(password, user.password);
     if (!auth) {
       return res
         .status(400)
         .json({ message: "Password credential is incorrect!" });
     }
-    res.cookie("jwt", createToken(email, user.id), {
-      maxAge: maxAge * 1000,
-    });
+
+    createToken(res, email, user.id); // Set the token as a cookie
 
     return res.status(200).json({
       user: {
@@ -87,6 +88,7 @@ const login = asyncHandler(async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
+
 
 const getUserInfo = asyncHandler(async (req, res) => {
   try {
