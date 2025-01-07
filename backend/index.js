@@ -11,14 +11,17 @@ import messagesRoutes from "./routes/MessagesRoute.js";
 import channelRoutes from "./routes/ChannelRoutes.js";
 
 dotenv.config();
-dbConnect()
+dbConnect();
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 app.use(
   cors({
-    origin: ["https://twilight-chat-jznxudi6i-neyvils-projects.vercel.app"],
+    origin: [
+      process.env.ORIGIN ||
+        "https://twilight-chat-oc3lgcba1-neyvils-projects.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true, //for cookies
   })
