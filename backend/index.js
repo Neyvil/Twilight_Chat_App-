@@ -25,7 +25,7 @@ app.use(
   })
 );
 
-app.use(helmet()); 
+app.use(helmet());
 
 // Serve static files
 app.use("/uploads/profiles", express.static("uploads/profiles"));
@@ -41,14 +41,11 @@ app.use("/api/contacts", contactsRoutes);
 app.use("/api/messages", messagesRoutes);
 app.use("/api/channels", channelRoutes);
 
-const reactBuildPath = path.resolve("build"); 
-app.use(express.static(reactBuildPath));
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
-
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(reactBuildPath, "index.html"));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html')); 
 });
-
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -61,7 +58,6 @@ const server = app.listen(port, () =>
 
 // Socket setup
 socketSetUp(server);
-
 
 process.on("SIGINT", async () => {
   console.log("Shutting down server...");
