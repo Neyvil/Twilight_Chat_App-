@@ -10,6 +10,12 @@ import contactsRoutes from "./routes/ContactsRoutes.js";
 import socketSetUp from "./socket.js";
 import messagesRoutes from "./routes/MessagesRoute.js";
 import channelRoutes from "./routes/ChannelRoutes.js";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+// Deriving __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 dotenv.config();
 dbConnect();
