@@ -40,7 +40,7 @@ app.use("/uploads/files", express.static("uploads/files"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+app.use(express.static(path.join(__dirname, 'frontend')));
 
 // API Routes
 app.use("/api/auth", authRoutes);
@@ -50,7 +50,7 @@ app.use("/api/channels", channelRoutes);
 
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html')); 
+  res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
 app.use((err, req, res, next) => {
