@@ -1,7 +1,7 @@
 import { containerPropDefs } from "@radix-ui/themes/dist/cjs/components/container.props";
 
 export const HOST = import.meta.env.VITE_SERVER_URL;
-export const BACKEND_HOST = "http://localhost:5000";
+export const BACKEND_HOST = "https://twilight-chat-app.onrender.com";
 export const AUTH_ROUTES = "api/auth";
 export const SIGNUP_ROUTE = `${AUTH_ROUTES}/signup`;
 export const LOGIN_ROUTE = `${AUTH_ROUTES}/login`;

@@ -15,7 +15,7 @@ export default defineConfig({
     proxy: {
       // Proxy API requests to the backend
       "/api/": {
-        target: "http://localhost:5000", // Backend URL
+        target: "https://twilight-chat-app.onrender.com", // Backend URL
         changeOrigin: true,
         
       },
