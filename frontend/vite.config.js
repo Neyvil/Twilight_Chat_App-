@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-  base:'/',
+  base: "/",
   resolve: {
     alias: {
       // eslint-disable-next-line no-undef
@@ -13,11 +13,10 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      // Proxy API requests to the backend
       "/api/": {
         target: "https://twilight-chat-app.onrender.com", // Backend URL
         changeOrigin: true,
-        
+        rewrite: (path) => path.replace(/^\/api/, ""), // Optional: rewrite the path if needed
       },
     },
   },

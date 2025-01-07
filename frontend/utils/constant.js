@@ -1,6 +1,5 @@
-export const BACKEND_HOST =
-  import.meta.env.NEXT_PUBLIC_BACKEND_HOST ||
-  "https://twilight-chat-app.onrender.com";
+export const BACKEND_HOST = import.meta.env.VITE_SERVER_URL || "https://twilight-chat-app.onrender.com";
+
 
 const buildUrl = (route) => `${BACKEND_HOST}/${route}`;
 
