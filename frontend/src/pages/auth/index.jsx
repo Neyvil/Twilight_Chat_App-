@@ -122,93 +122,133 @@ const Auth = () => {
       {isLoading ? ( 
         <Loader />
       ) : (
-        <div className="h-[80vh] bg-white border-2 text-opacity-90 shadow-2xl border-gray-200 w-full sm:w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-3xl grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 overflow-auto">
-  <div className="flex flex-col gap-6 sm:gap-10 items-center justify-center p-4 sm:p-6">
-    <div className="flex items-center justify-center flex-col">
-      <Logo />
-      <h1 className="text-3xl sm:text-4xl font-bold md:text-5xl">Welcome</h1>
-      <img src={Victory} alt="Victory Emoji" className="h-[60px] sm:h-[80px] md:h-[90px]" />
-      <p className="font-medium text-sm sm:text-lg text-center px-2">
-        Fill in the details to get started with <span className="merienda-medium text-purple-700">Twilight</span> chat app!
-      </p>
-      <p className="caveat-medium text-lg sm:text-2xl pt-2">
-        Where Naba wants to talk to his friends :)
-      </p>
-    </div>
-
-    <div className="flex items-center justify-center w-full">
-      <Tabs className="w-full sm:w-3/4" defaultValue="login">
-        <TabsList className="bg-transparent rounded-none w-full">
-          <TabsTrigger
-            className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-full data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-2 sm:p-3 transition-all duration-300"
-            value="login"
-          >
-            Login
-          </TabsTrigger>
-          <TabsTrigger
-            className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-full data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-2 sm:p-3 transition-all duration-300"
-            value="signup"
-          >
-            Signup
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value="login" className="flex flex-col gap-3 sm:gap-5 mt-6 sm:mt-10">
-          <Input
-            placeholder="Email"
-            type="email"
-            className="w-full sm:w-[80%] md:w-[70%] rounded-full p-3 sm:p-6"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <Input
-            placeholder="Password"
-            type="password"
-            className="w-full sm:w-[80%] md:w-[70%] rounded-full p-3 sm:p-6"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <Button className="rounded-full p-3 sm:p-6" onClick={handleLogin}>Login</Button>
-        </TabsContent>
-
-        <TabsContent value="signup" className="flex flex-col items-center">
-          <div className="w-full px-6 sm:px-10">
-            <h2 className="text-lg sm:text-xl font-semibold text-center mb-4">
-              Create an Account
-            </h2>
-            <Input
-              placeholder="Enter your email"
-              type="email"
-              className="w-full sm:w-[80%] md:w-[70%] rounded-full p-3 sm:p-6"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <Input
-              placeholder="Create a password"
-              type="password"
-              className="w-full sm:w-[80%] md:w-[70%] rounded-full p-3 sm:p-6"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <Input
-              placeholder="Confirm your password"
-              type="password"
-              className="w-full sm:w-[80%] md:w-[70%] rounded-full p-3 sm:p-6"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              onKeyDown={handleKeyDown}
-            />
-            <Button className="w-full rounded-full p-3 sm:p-6 bg-purple-500 hover:bg-purple-600 text-white transition duration-300" onClick={handleSignup}>Sign Up</Button>
+        <div className="h-[80vh] bg-white border-2 text-opacity-90 shadow-2xl border-gray-200 w-full sm:w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-3xl grid grid-cols-1 xl:grid-cols-2 ">
+          <div className="flex flex-col gap-6 sm:gap-10 items-center justify-center px-4 sm:p-6">
+            <div className="flex items-center justify-center flex-col">
+              <div>
+                <Logo />
+              </div>
+              <div className="flex justify-center items-center">
+                <h1 className="text-3xl sm:text-4xl font-bold md:text-5xl">
+                  Welcome
+                </h1>
+                <img
+                  src={Victory}
+                  alt="Victory Emoji"
+                  className="h-[60px] sm:h-[80px] md:h-[90px]"
+                />
+              </div>
+              <p className="font-medium text-sm sm:text-lg text-center px-2">
+                Fill in the details to get started with{" "}
+                <span className="merienda-medium text-purple-700">
+                  Twilight
+                </span>{" "}
+                chat app!
+              </p>
+              <p className="caveat-medium text-lg sm:text-2xl pt-2">
+                Where Naba wants to talk to his friends :)
+              </p>
+            </div>
+            <div className="flex items-center justify-center w-full">
+              <Tabs className="w-full sm:w-3/4" defaultValue="login">
+                <TabsList className="bg-transparent rounded-none w-full">
+                  <TabsTrigger
+                    className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-full data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-2 sm:p-3 transition-all duration-300"
+                    value="login"
+                  >
+                    Login
+                  </TabsTrigger>
+                  <TabsTrigger
+                    className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-full data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-2 sm:p-3 transition-all duration-300"
+                    value="signup"
+                  >
+                    Signup
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent
+                  value="login"
+                  className="flex flex-col gap-3 sm:gap-5 mt-6 sm:mt-10"
+                >
+                  <Input
+                    placeholder="Email"
+                    type="email"
+                    className="rounded-full p-3 sm:p-6"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+                  <Input
+                    placeholder="Password"
+                    type="password"
+                    className="rounded-full p-3 sm:p-6"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+                  <Button
+                    className="rounded-full p-3 sm:p-6"
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </Button>
+                </TabsContent>
+                <TabsContent
+                  value="signup"
+                  className="flex flex-col gap-3 sm:gap-5"
+                >
+                  <Input
+                      placeholder="Enter your email"
+                      type="email"
+                      className="rounded-full p-3 sm:p-6"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Input
+                      placeholder="Create a password"
+                      type="password"
+                      className="rounded-full p-3 sm:p-6"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Input
+                      placeholder="Confirm your password"
+                      type="password"
+                      className="rounded-full p-3 sm:p-6"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Button
+                      className="rounded-full p-3 sm:p-6"
+                      onClick={handleSignup}
+                    >
+                      Sign Up
+                    </Button>
+                    <p className="text-xs sm:text-sm text-gray-500 text-center mt-2">
+                      By signing up, you agree to our{" "}
+                      <span className="text-purple-600 cursor-pointer hover:underline">
+                        Terms & Conditions
+                      </span>{" "}
+                      and{" "}
+                      <span className="text-purple-600 cursor-pointer hover:underline">
+                        Privacy Policy
+                      </span>
+                      .
+                    </p>
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
-        </TabsContent>
-      </Tabs>
-    </div>
-  </div>
-</div>
-
+          <div className="hidden xl:flex justify-center items-center">
+            <img
+              src={Background}
+              alt="Background Login"
+              className="h-[50vh] sm:h-[60vh] md:h-[70vh]"
+            />
+          </div>
+        </div>
       )}
     </div>
   );
