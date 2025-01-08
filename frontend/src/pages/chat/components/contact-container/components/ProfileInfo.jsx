@@ -24,7 +24,6 @@ const ProfileInfo = () => {
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-
   const logOut = async () => {
     setIsLoggingOut(true);
     try {
@@ -43,16 +42,23 @@ const ProfileInfo = () => {
       setIsLoggingOut(false);
     }
   };
+
   return (
-    <div className=" absolute bottom-0 flex items-center justify-evenly w-full bg-[#2a2b33] h-16 ">
-      <div className="flex gap-4 mr-12 items-center justify-center ">
-        <div className="w-12 h-12 relative">
-          <Avatar className=" h-12 w-12 md:h-18 md:w-18 rounded-full overflow-hidden">
+    <>
+      {isLoggingOut && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <Loader />
+        </div>
+      )}
+      <div className="absolute bottom-0 flex items-center justify-evenly w-full bg-[#2a2b33] h-16">
+        <div className="flex gap-4 mr-12 items-center justify-center">
+          <div className="w-12 h-12 relative">
+            <Avatar className="h-12 w-12 md:h-18 md:w-18 rounded-full overflow-hidden">
               {userInfo.image ? (
                 <AvatarImage
                   src={userInfo.image}
                   alt="userProfile"
-                  className="object-cover w-full h-full bg-black "
+                  className="object-cover w-full h-full bg-black"
                 />
               ) : (
                 <div
@@ -66,45 +72,44 @@ const ProfileInfo = () => {
                 </div>
               )}
             </Avatar>
+          </div>
+          <div>
+            {userInfo.firstName && userInfo.lastName
+              ? `${userInfo.firstName} ${userInfo.lastName}`
+              : ""}
+          </div>
         </div>
-        <div>
-          {userInfo.firstName && userInfo.lastName
-            ? `${userInfo.firstName} ${userInfo.lastName}`
-            : ""}
-        </div>
-      </div>
 
-      <div className="flex gap-5">
-        {isLoggingOut ?<Loader/>:<>
+        <div className="flex gap-5">
           <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <FiEdit2
-                className=" text-purple-500 text-2xl font-medium"
-                onClick={() => navigate("/profile")}
-              />
-            </TooltipTrigger>
-            <TooltipContent className=" bg-[#1c1b1e] border-none text-white">
-              <p>Edit Profile</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <IoPowerSharp
-                className=" text-red-500 text-2xl font-medium"
-                onClick={logOut}
-              />
-            </TooltipTrigger>
-            <TooltipContent className=" bg-[#1c1b1e] border-none text-white">
-              <p>Log Out</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        </>}
+            <Tooltip>
+              <TooltipTrigger>
+                <FiEdit2
+                  className="text-purple-500 text-2xl font-medium"
+                  onClick={() => navigate("/profile")}
+                />
+              </TooltipTrigger>
+              <TooltipContent className="bg-[#1c1b1e] border-none text-white">
+                <p>Edit Profile</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger>
+                <IoPowerSharp
+                  className="text-red-500 text-2xl font-medium"
+                  onClick={logOut}
+                />
+              </TooltipTrigger>
+              <TooltipContent className="bg-[#1c1b1e] border-none text-white">
+                <p>Log Out</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
