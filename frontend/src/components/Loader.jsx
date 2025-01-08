@@ -2,7 +2,7 @@ import React from "react";
 
 const Loader = () => {
   return (
-    <div className="flex items-center justify-center z-50 backdrop-blur-xl min-h-screen ">
+    <div className="flex items-center justify-center min-h-screen ">
       <div className="relative w-[120px] h-[48px] overflow-hidden">
         <svg
           id="logo-38"

@@ -196,15 +196,21 @@ const removeProfileImage = asyncHandler(async (req, res) => {
 
 const logOut = asyncHandler(async (req, res) => {
   try {
+    
     res.cookie("jwt", "", {
-      maxAge: 1,
+      httpOnly: true, 
+      secure: process.env.NODE_ENV === "production", 
+      expires: new Date(0),  
+      sameSite: "Strict", 
     });
 
-    res.status(200).json({ message: "Logged out Successfully" });
+    res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: "Failed to log out" });
   }
 });
+
 export {
   signup,
   login,

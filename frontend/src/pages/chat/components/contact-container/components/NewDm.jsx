@@ -62,8 +62,7 @@ const NewDm = () => {
         <Tooltip>
           <TooltipTrigger>
             <FaPlus
-              className=" text-neutral-400 font-light text-opacity-90 text-start hover:text-neutral-100 cursor-pointer transition-all duration-300 
-  md:block hidden"
+              className=" text-neutral-400 font-light text-opacity-90 text-start hover:text-neutral-100 cursor-pointer transition-all duration-300 "
               onClick={() => setOpenNewContactModal(true)}
             />
           </TooltipTrigger>
