@@ -14,6 +14,8 @@ import {
   BACKEND_HOST,
   REMOVE_PROFILE_IMAGE_ROUTE,
 } from "../../../utils/constant.js";
+import Loader from "../../components/Loader.jsx";  // Import your loader component
+import React from "react";
 
 const Profile = () => {
   const { userInfo, setUserInfo } = useAppStore();
@@ -23,6 +25,7 @@ const Profile = () => {
   const [image, setImage] = useState(null);
   const [hovered, setHovered] = useState(false);
   const [selectedColor, setSelectedColor] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);  // Loading state
   const fileInputRef = useRef(null);
 
   const validateProfile = () => {
@@ -51,6 +54,7 @@ const Profile = () => {
 
   const saveChanges = async () => {
     if (validateProfile()) {
+      setIsLoading(true);  // Set loading to true
       try {
         const response = await apiClient.post(
           UPDATE_PROFILE_ROUTE,
@@ -64,6 +68,8 @@ const Profile = () => {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsLoading(false);  // Set loading to false once operation completes
       }
     }
   };
@@ -82,8 +88,8 @@ const Profile = () => {
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
-    console.log(file);
     if (file) {
+      setIsLoading(true);  // Set loading to true
       const formData = new FormData();
       formData.append("profile-image", file);
       const response = await apiClient.post(ADD_PROFILE_IMAGE_ROUTE, formData, {
@@ -99,10 +105,14 @@ const Profile = () => {
         setImage(reader.result);
       };
       reader.readAsDataURL(file);
+
+      setIsLoading(false);  // Set loading to false once operation completes
     }
   };
+
   const handleDeleteImage = async () => {
     try {
+      setIsLoading(true);  // Set loading to true
       const response = await apiClient.delete(REMOVE_PROFILE_IMAGE_ROUTE, {
         withCredentials: true,
       });
@@ -113,18 +123,19 @@ const Profile = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);  
     }
   };
 
   return (
     <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10 px-4 md:px-10 overflow-auto">
-       <Logo />
+      <Logo />
       <div className="flex flex-col gap-10 w-full md:w-[80vw] lg:w-max">
         <div onClick={handleNavigate}>
           <IoArrowBack className="text-3xl md:text-4xl lg:text-6xl text-white/90 cursor-pointer" />
-         
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
           <div
             className="h-full w-32 md:w-48 md:h-48 relative flex items-center justify-center mx-auto lg:mx-0"
@@ -214,12 +225,17 @@ const Profile = () => {
             </div>
           </div>
         </div>
+
         <div className="w-full">
           <Button
             className="h-12 md:h-16 w-full bg-purple-700 hover:bg-purple-900 transition-all duration-300"
             onClick={saveChanges}
           >
-            Save Changes
+            {isLoading ? (
+              <Loader />  // Show loader while saving
+            ) : (
+              "Save Changes"
+            )}
           </Button>
         </div>
       </div>
@@ -228,6 +244,8 @@ const Profile = () => {
 };
 
 export default Profile;
+
+
 
 const Logo = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -272,7 +290,7 @@ const Logo = () => {
         </svg>
       </div>
       <span
-        className={`merienda-medium text-4xl md:text-5xl text-white transform transition-all duration-700 delay-300 ${
+        className={`merienda-medium text-4xl md:text-6xl text-purple-600 transform transition-all duration-700 delay-300 ${
           isLoaded ? "translate-x-0 opacity-100" : "-translate-x-32 opacity-0"
         }`}
       >

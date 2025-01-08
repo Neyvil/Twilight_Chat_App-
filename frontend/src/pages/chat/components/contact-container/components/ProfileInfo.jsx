@@ -16,12 +16,17 @@ import { useNavigate } from "react-router-dom";
 import { IoPowerSharp } from "react-icons/io5";
 import { apiClient } from "@/lib/api-client.js";
 import { toast } from "sonner";
+import Loader from "@/components/Loader.jsx";
+import { useState } from "react";
 
 const ProfileInfo = () => {
   const { userInfo, setUserInfo } = useAppStore();
   const navigate = useNavigate();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
 
   const logOut = async () => {
+    setIsLoggingOut(true);
     try {
       const response = await apiClient.post(LOG_OUT_ROUTE, {
         withCredentials: true,
@@ -33,6 +38,9 @@ const ProfileInfo = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("Failed to log out. Please try again.");
+    } finally {
+      setIsLoggingOut(false);
     }
   };
   return (
@@ -67,7 +75,8 @@ const ProfileInfo = () => {
       </div>
 
       <div className="flex gap-5">
-        <TooltipProvider>
+        {isLoggingOut ?<Loader/>:<>
+          <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <FiEdit2
@@ -93,6 +102,7 @@ const ProfileInfo = () => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
+        </>}
       </div>
     </div>
   );

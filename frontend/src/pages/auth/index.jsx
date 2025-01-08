@@ -196,36 +196,53 @@ const Auth = () => {
                   value="signup"
                   className="flex flex-col gap-3 sm:gap-5 mt-6 sm:mt-10"
                 >
+                  <h2 className="text-lg sm:text-xl font-semibold text-center">
+                    Create an Account
+                  </h2>
+                  <p className="text-sm sm:text-base text-gray-600 text-center px-2">
+                    Join us today to explore exciting features!
+                  </p>
                   <Input
-                    placeholder="Email"
+                    placeholder="Enter your email"
                     type="email"
-                    className="rounded-full p-3 sm:p-6"
+                    className="rounded-full p-3 sm:p-6 border border-gray-300 focus:ring-2 focus:ring-purple-500"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onKeyDown={handleKeyDown}
                   />
                   <Input
-                    placeholder="Password"
+                    placeholder="Create a password"
                     type="password"
-                    className="rounded-full p-3 sm:p-6"
+                    className="rounded-full p-3 sm:p-6 border border-gray-300 focus:ring-2 focus:ring-purple-500"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     onKeyDown={handleKeyDown}
                   />
                   <Input
-                    placeholder="Confirm Password"
+                    placeholder="Confirm your password"
                     type="password"
-                    className="rounded-full p-3 sm:p-6"
+                    className="rounded-full p-3 sm:p-6 border border-gray-300 focus:ring-2 focus:ring-purple-500"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     onKeyDown={handleKeyDown}
                   />
                   <Button
-                    className="rounded-full p-3 sm:p-6"
+                    className="rounded-full p-3 sm:p-6 bg-purple-500 hover:bg-purple-600 text-white transition duration-300"
                     onClick={handleSignup}
                   >
                     Sign Up
                   </Button>
+                  <p className="text-xs sm:text-sm text-gray-500 text-center mt-2">
+                    By signing up, you agree to our{" "}
+                    <span className="text-purple-600 cursor-pointer hover:underline">
+                      Terms & Conditions
+                    </span>{" "}
+                    and{" "}
+                    <span className="text-purple-600 cursor-pointer hover:underline">
+                      Privacy Policy
+                    </span>
+                    .
+                  </p>
                 </TabsContent>
               </Tabs>
             </div>
