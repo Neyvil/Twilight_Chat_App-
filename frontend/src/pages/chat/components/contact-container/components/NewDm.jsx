@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom"; // Import useLocation for route checks
 import {
   Tooltip,
   TooltipContent,
@@ -29,6 +30,8 @@ const NewDm = () => {
   const { setSelectedChatType, setSelectedChatData } = useAppStore();
   const [openNewContactModal, setOpenNewContactModal] = useState(false);
   const [searchedContacts, setSearchedContacts] = useState([]);
+  const location = useLocation(); // Get the current route
+
   const searchContact = async (searchTerm) => {
     try {
       if (searchTerm.length > 0) {
@@ -56,24 +59,26 @@ const NewDm = () => {
     setSearchedContacts([]);
   };
 
+  // Only render FaPlus on specific routes (e.g., /chat)
+  if (location.pathname !== "/chat") return null;
+
   return (
     <>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger>
             <FaPlus
-              className=" text-neutral-400 font-light text-opacity-90 text-start hover:text-neutral-100 cursor-pointer transition-all duration-300 
-  md:block hidden"
+              className="text-neutral-400 font-light text-opacity-90 hover:text-neutral-100 cursor-pointer transition-all duration-300 md:block sm:block hidden"
               onClick={() => setOpenNewContactModal(true)}
             />
           </TooltipTrigger>
-          <TooltipContent className=" bg-[#1c1b1e] border-none mb-2 p-3 text-white ">
+          <TooltipContent className="bg-[#1c1b1e] border-none mb-2 p-3 text-white">
             Select New Contact
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
       <Dialog open={openNewContactModal} onOpenChange={setOpenNewContactModal}>
-        <DialogContent className=" bg-[#181920] border-none text-white w-[400px] h-[450px] md:h-[400px] flex flex-col ">
+        <DialogContent className="bg-[#181920] border-none text-white w-[400px] h-[450px] md:h-[400px] flex flex-col">
           <DialogHeader>
             <DialogTitle>Please select a contact to chat</DialogTitle>
             <DialogDescription></DialogDescription>
@@ -86,7 +91,7 @@ const NewDm = () => {
             />
           </div>
           {searchedContacts.length > 0 && (
-            <ScrollArea className="h-[250px] ">
+            <ScrollArea className="h-[250px]">
               <div className="flex flex-col gap-5">
                 {searchedContacts.map((contacts) => (
                   <div
@@ -95,12 +100,12 @@ const NewDm = () => {
                     onClick={() => selectNewContact(contacts)}
                   >
                     <div className="w-12 h-12 relative">
-                      <Avatar className=" h-12 w-12 rounded-full overflow-hidden">
+                      <Avatar className="h-12 w-12 rounded-full overflow-hidden">
                         {contacts.image ? (
                           <AvatarImage
                             src={`${BACKEND_HOST}/${contacts.image}`}
                             alt="userProfile"
-                            className="object-cover rounded-full w-full h-full bg-black "
+                            className="object-cover rounded-full w-full h-full bg-black"
                           />
                         ) : (
                           <div
@@ -138,15 +143,15 @@ const NewDm = () => {
                 width={100}
                 options={animationDefaultOptions}
               />
-              <div className=" text-opacity-80 text-white flex-col gap-5 items-center mt-5 lg:text-2xl text-xl transition-all duration-300 text-center">
-                <h3 className=" poppins-medium">
+              <div className="text-opacity-80 text-white flex-col gap-5 items-center mt-5 lg:text-2xl text-xl transition-all duration-300 text-center">
+                <h3 className="poppins-medium">
                   Hey <span className="text-purple-500">!</span> <br /> Search
                   your
                   <span className="text-purple-500"> Contacts </span>
                   <span>.</span>
                 </h3>
-                <h6 className=" text-3xl caveat-medium">
-                  & <br /> Lets Chat :)
+                <h6 className="text-3xl caveat-medium">
+                  & <br /> Let's Chat :)
                 </h6>
               </div>
             </div>

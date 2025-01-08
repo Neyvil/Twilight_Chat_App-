@@ -119,7 +119,7 @@ const Auth = () => {
 
   return (
     <div className="h-[100vh] w-[100vw] flex items-center justify-center px-4 sm:px-8">
-      {isLoading ? ( // Conditionally render Loader
+      {isLoading ? ( 
         <Loader />
       ) : (
         <div className="h-[80vh] bg-white border-2 text-opacity-90 shadow-2xl border-gray-200 w-full sm:w-[90vw] md:w-[70vw] lg:w-[60vw] rounded-3xl grid grid-cols-1 xl:grid-cols-2">
@@ -194,55 +194,57 @@ const Auth = () => {
                 </TabsContent>
                 <TabsContent
                   value="signup"
-                  className="flex flex-col gap-3 sm:gap-5 mt-6 sm:mt-10"
+                  className="flex flex-col items-center gap-5 mt-6 sm:mt-10"
                 >
-                  <h2 className="text-lg sm:text-xl font-semibold text-center">
-                    Create an Account
-                  </h2>
-                  <p className="text-sm sm:text-base text-gray-600 text-center px-2">
-                    Join us today to explore exciting features!
-                  </p>
-                  <Input
-                    placeholder="Enter your email"
-                    type="email"
-                    className="rounded-full p-3 sm:p-6 border border-gray-300 focus:ring-2 focus:ring-purple-500"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <Input
-                    placeholder="Create a password"
-                    type="password"
-                    className="rounded-full p-3 sm:p-6 border border-gray-300 focus:ring-2 focus:ring-purple-500"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <Input
-                    placeholder="Confirm your password"
-                    type="password"
-                    className="rounded-full p-3 sm:p-6 border border-gray-300 focus:ring-2 focus:ring-purple-500"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                  />
-                  <Button
-                    className="rounded-full p-3 sm:p-6 bg-purple-500 hover:bg-purple-600 text-white transition duration-300"
-                    onClick={handleSignup}
-                  >
-                    Sign Up
-                  </Button>
-                  <p className="text-xs sm:text-sm text-gray-500 text-center mt-2">
-                    By signing up, you agree to our{" "}
-                    <span className="text-purple-600 cursor-pointer hover:underline">
-                      Terms & Conditions
-                    </span>{" "}
-                    and{" "}
-                    <span className="text-purple-600 cursor-pointer hover:underline">
-                      Privacy Policy
-                    </span>
-                    .
-                  </p>
+                  <div className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 bg-gray-100 p-6 sm:p-10 rounded-lg shadow-lg">
+                    <h2 className="text-lg sm:text-xl font-semibold text-center mb-4">
+                      Create an Account
+                    </h2>
+                    <p className="text-sm sm:text-base text-gray-600 text-center mb-6">
+                      Join us today to explore exciting features!
+                    </p>
+                    <Input
+                      placeholder="Enter your email"
+                      type="email"
+                      className="rounded-full p-3 sm:p-4 border border-gray-300 focus:ring-2 focus:ring-purple-500 mb-4"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Input
+                      placeholder="Create a password"
+                      type="password"
+                      className="rounded-full p-3 sm:p-4 border border-gray-300 focus:ring-2 focus:ring-purple-500 mb-4"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Input
+                      placeholder="Confirm your password"
+                      type="password"
+                      className="rounded-full p-3 sm:p-4 border border-gray-300 focus:ring-2 focus:ring-purple-500 mb-6"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      onKeyDown={handleKeyDown}
+                    />
+                    <Button
+                      className="w-full rounded-full p-3 sm:p-4 bg-purple-500 hover:bg-purple-600 text-white transition duration-300"
+                      onClick={handleSignup}
+                    >
+                      Sign Up
+                    </Button>
+                    <p className="text-xs sm:text-sm text-gray-500 text-center mt-4">
+                      By signing up, you agree to our{" "}
+                      <span className="text-purple-600 cursor-pointer hover:underline">
+                        Terms & Conditions
+                      </span>{" "}
+                      and{" "}
+                      <span className="text-purple-600 cursor-pointer hover:underline">
+                        Privacy Policy
+                      </span>
+                      .
+                    </p>
+                  </div>
                 </TabsContent>
               </Tabs>
             </div>
