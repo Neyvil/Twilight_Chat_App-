@@ -194,10 +194,9 @@ const Auth = () => {
                 </TabsContent>
                 <TabsContent
                   value="signup"
-                  className="flex flex-col items-center"
+                  className="flex flex-col gap-3 sm:gap-5 mt-6 sm:mt-10"
                 >
-                  <div className="w-full px-6 sm:px-10 rounded-lg shadow-lg">
-                    <h2 className="text-lg sm:text-xl font-semibold text-center mb-4">
+                   <h2 className="text-lg sm:text-xl font-semibold text-center mb-4">
                       Create an Account
                     </h2>
                     <p className="text-sm sm:text-base text-gray-600 text-center mb-6">
@@ -244,7 +243,6 @@ const Auth = () => {
                       </span>
                       .
                     </p>
-                  </div>
                 </TabsContent>
               </Tabs>
             </div>
