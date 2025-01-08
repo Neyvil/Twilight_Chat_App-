@@ -194,9 +194,9 @@ const Auth = () => {
                 </TabsContent>
                 <TabsContent
                   value="signup"
-                  className="flex flex-col items-center gap-5 mt-6 sm:mt-10"
+                  className="flex flex-col items-center gap-5"
                 >
-                  <div className="w-full sm:w-3/4 md:w-2/3 lg:w-1/2 bg-gray-100 p-6 sm:p-10 rounded-lg shadow-lg">
+                  <div className="w-full p-6 sm:p-10 rounded-lg shadow-lg">
                     <h2 className="text-lg sm:text-xl font-semibold text-center mb-4">
                       Create an Account
                     </h2>

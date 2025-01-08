@@ -129,7 +129,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10 px-4 md:px-10 overflow-auto">
+    <div className={`bg-[#1b1c24] h-[100vh] flex items-center justify-center flex-col gap-10 px-4 md:px-10 overflow-auto ${isLoading ? "backdrop-blur-md" : ""}`}>
       <Logo />
       <div className="flex flex-col gap-10 w-full md:w-[80vw] lg:w-max">
         <div onClick={handleNavigate}>
@@ -213,11 +213,7 @@ const Profile = () => {
             <div className="w-full flex gap-3 flex-wrap">
               {colors.map((color, index) => (
                 <div
-                  className={`${color} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${
-                    selectedColor === index
-                      ? "outline outline-white/50 outline-2"
-                      : ""
-                  }`}
+                  className={`${color} h-8 w-8 rounded-full cursor-pointer transition-all duration-300 ${selectedColor === index ? "outline outline-white/50 outline-2" : ""}`}
                   key={index}
                   onClick={() => setSelectedColor(index)}
                 ></div>
@@ -244,7 +240,6 @@ const Profile = () => {
 };
 
 export default Profile;
-
 
 
 const Logo = () => {
